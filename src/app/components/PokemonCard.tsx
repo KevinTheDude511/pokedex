@@ -26,12 +26,6 @@ export const PokemonCard: React.FC<PokemonCardProps> = async ({ pokemonCard }) =
                     className="px-4"
                 >
                 </Image>
-                {/* <img
-                    src={pokemonCard.sprite}
-                    alt="Pokémon Sprite"
-                    width={220}
-                    className="px-4"
-                /> */}
             </div>
             <div className="capitalize">
                 <p className="text-center body-3 pb-2">{pokemonCard.name}</p>
