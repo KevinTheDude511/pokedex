@@ -7,8 +7,16 @@ import {
 } from "@/app/components/Icons";
 import { PokemonTypeTag } from "@/app/components/PokemonTypeTag";
 import { StatsBar } from "@/app/components/StatsBar";
-import { PokemonDetails } from "@/app/types/pokemon.interface";
+import {
+    PokemonDetails,
+    PokemonApiResponse,
+    PokemonSpeciesApiResponse,
+    PokeType,
+    PokemonAbility,
+    PokemonStat,
+} from "@/app/types/pokemon.interface";
 import Link from "next/link";
+import Image from "next/image";
 import { MAX_POKEMON } from "@/app/constants/pokemon.constant";
 
 export default async function PokemonDetailsPage({
@@ -24,34 +32,31 @@ export default async function PokemonDetailsPage({
         fetch(`${apiUrl}pokemon-species/${params.pokemonId}`),
     ]);
 
-    const [pokemonJson, speciesJson] = await Promise.all([
-        pokemonFetch.json(),
-        speciesFetch.json(),
-    ]);
+    const [pokemonJson, speciesJson]: [
+        PokemonApiResponse,
+        PokemonSpeciesApiResponse
+    ] = await Promise.all([pokemonFetch.json(), speciesFetch.json()]);
 
-    const description: string =
-        speciesJson["flavor_text_entries"][0]["flavor_text"];
+    const description: string = speciesJson.flavor_text_entries[0].flavor_text;
     const cleanedDescription = description
         .replace(/\n/g, " ")
         .replace(/\f/g, " ");
 
     const pokemon: PokemonDetails = {
         id: Number(params.pokemonId),
-        name: pokemonJson["name"],
-        types: pokemonJson["types"].map((pokeType: any) => {
-            return pokeType["type"]["name"];
+        name: pokemonJson.name,
+        types: pokemonJson.types.map((pokeType: PokeType) => {
+            return pokeType.type.name;
         }),
-        sprite: pokemonJson["sprites"]["other"]["official-artwork"][
-            "front_default"
-        ],
-        weight: pokemonJson["weight"] / 10, // weight is in hectograms
-        height: pokemonJson["height"] / 10, // height is in decimetres
-        moves: pokemonJson["abilities"].map((ability: any) => {
-            return ability["ability"]["name"];
+        sprite: pokemonJson.sprites.other["official-artwork"].front_default,
+        weight: pokemonJson.weight / 10, // weight is in hectograms
+        height: pokemonJson.height / 10, // height is in decimetres
+        moves: pokemonJson.abilities.map((ability: PokemonAbility) => {
+            return ability.ability.name;
         }),
         description: cleanedDescription,
-        stats: pokemonJson["stats"].map((stat: any) => {
-            let statName: string = stat["stat"]["name"];
+        stats: pokemonJson.stats.map((stat: PokemonStat) => {
+            let statName: string = stat.stat.name;
             switch (statName) {
                 case "hp":
                     statName = "HP";
@@ -76,7 +81,7 @@ export default async function PokemonDetailsPage({
             }
             return {
                 name: statName,
-                baseStat: stat["base_stat"],
+                baseStat: stat.base_stat,
             };
         }),
     };
@@ -113,13 +118,17 @@ export default async function PokemonDetailsPage({
                     <Link href={`/pokemons/${pokemon.id - 1}`}>
                         <LeftChevron className="w-[30px] h-[30px] stroke-white"></LeftChevron>
                     </Link>
-                ) : (<div></div>)}
-                <img src={pokemon.sprite} alt={pokemon.name} width={350} />
+                ) : (
+                    <div></div>
+                )}
+                <Image src={pokemon.sprite} alt={pokemon.name} width={350} height={350}></Image>
                 {pokemon.id + 1 <= MAX_POKEMON ? (
                     <Link href={`/pokemons/${pokemon.id + 1}`}>
                         <RightChevron className="w-[30px] h-[30px] stroke-white"></RightChevron>
                     </Link>
-                ) : (<div></div>)}
+                ) : (
+                    <div></div>
+                )}
             </div>
             <div className="bg-white px-7 pt-[7em] mt-[-7em] rounded-2xl shadow-inner-sm">
                 <div className="flex justify-center gap-8">

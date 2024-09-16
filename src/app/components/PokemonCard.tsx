@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PokeCard } from "../types/pokemon.interface";
+import Image from "next/image";
 
 interface PokemonCardProps {
     pokemonCard: PokeCard
@@ -17,12 +18,20 @@ export const PokemonCard: React.FC<PokemonCardProps> = async ({ pokemonCard }) =
                 </p>
             </div>
             <div>
-                <img
+                <Image
+                    src={pokemonCard.sprite}
+                    alt="Pokémon Sprite"
+                    width={220}
+                    height={220}
+                    className="px-4"
+                >
+                </Image>
+                {/* <img
                     src={pokemonCard.sprite}
                     alt="Pokémon Sprite"
                     width={220}
                     className="px-4"
-                />
+                /> */}
             </div>
             <div className="capitalize">
                 <p className="text-center body-3 pb-2">{pokemonCard.name}</p>
