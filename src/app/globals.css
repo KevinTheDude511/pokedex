@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Identity */
+    --primary: #dc0a2d;
+
+    /* Pokemon Type */
+    --bug: #a7b723;
+    --dark: #75574c;
+    --dragon: #7037ff;
+    --electric: #f9cf30;
+    --fairy: #e69eac;
+    --fighting: #c12239;
+    --fire: #f57d31;
+    --flying: #a891ec;
+    --ghost: #a891ec;
+    --normal: #aaa67f;
+    --grass: #74cb48;
+    --ground: #dec16b;
+    --ice: #9ad6df;
+    --poison: #a43e9e;
+    --psychic: #fb5584;
+    --rock: #b69e31;
+    --steel: #b7b9d0;
+    --water: #6493eb;
+
+    /* Grayscale */
+    --dark-gray-scale: #212121;
+    --medium-gray-scale: #666666;
+    --light-gray-scale: #e0e0e0;
+    --background: #efefef;
+    --white: #ffffff;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.headline {
+    @apply font-black text-[30px];
+}
+
+.subtitle-1 {
+    @apply font-bold text-[20px];
+}
+
+.subtitle-2 {
+    @apply font-bold text-[18px];
+}
+
+.subtitle-3 {
+    @apply font-bold text-[16px];
+}
+
+.body-1 {
+    @apply text-[20px];
+}
+
+.body-2 {
+    @apply text-[18px];
+}
+
+.body-3 {
+    @apply text-[16px];
+}
+
+.caption {
+    @apply text-[14px];
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
