@@ -8,6 +8,9 @@ A simple web-based Pokedex application built using **Next.js** and **TypeScript*
 - Sort Pokémon by name or number.
 - Responsive design with a clean UI.
 
+## Demo
+Click here to see the [demo](https://pokedex-ten-dusky.vercel.app/)
+
 ## Installation
 To get started with the project, follow these steps:
 1. Clone the repository
